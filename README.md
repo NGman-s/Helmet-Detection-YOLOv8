@@ -1,163 +1,165 @@
-# 🚴‍♂️ 骑行帽检测系统 (Cycling Helmet Detection System)
+# 🚴‍♂️ Helmet-Detection-YOLOv8: 城市骑行头盔佩戴检测系统
 
-基于YOLOv8的智能骑行帽检测系统，能够准确识别骑行者是否佩戴安全头盔。
+> **Project Status**: Completed (2025.06)  
+> **Author**: ShaoKai Shi (Undergraduate, CS Major)  
+> **Focus**: Computer Vision, Object Detection, Statistical Evaluation
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)
+![Model](https://img.shields.io/badge/Model-YOLOv8n-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## 📸 项目预览
+## 📖 项目背景与动机 (Abstract)
 
-本项目使用深度学习技术实现对骑行者的头盔佩戴情况进行实时检测，支持图片和视频流分析。
+在城市交通管理中，非机动车违规（如不佩戴头盔）是导致交通事故伤亡的重要原因。本项目旨在基于 **YOLOv8 (You Only Look Once)** 架构，构建一个轻量级、高精度的目标检测系统，以实现对骑行者头盔佩戴情况的自动化识别。
 
-## 🎯 功能特性
-
-- ✅ **实时检测**: 支持实时图片和视频中的头盔检测
-- ✅ **高精度识别**: 基于YOLOv8模型，准确识别"佩戴头盔"和"未佩戴头盔"
-- ✅ **批量处理**: 支持批量图片处理和视频流分析
-- ✅ **可视化结果**: 检测结果实时显示，包含置信度和边界框
-- ✅ **易于部署**: 完整的训练和推理代码，易于复现和部署
-
-## 📊 模型性能
-
-项目在BikesHelmets数据集上进行了训练，支持2个类别的检测：
-- `With Helmet`: 佩戴头盔
-- `Without Helmet`: 未佩戴头盔
-
-## 🚀 快速开始
-
-### 环境要求
-
-- Python 3.8+
-- PyTorch
-- Ultralytics YOLOv8
-- OpenCV
-- NumPy
-- tqdm
-
-### 安装依赖
-
-```bash
-pip install -r requirements.txt
-```
-
-### 数据准备
-
-1. 将你的数据集放在 `data/` 目录下，包含：
-   - `data/images/`: 图片文件
-   - `data/annotations/`: XML标注文件
-
-2. 运行数据预处理：
-```bash
-python prepare_data.py
-```
-
-### 模型训练
-
-```bash
-python train.py
-```
-
-### 图片检测
-
-```bash
-python predict1.py
-```
-
-### 视频检测
-
-```bash
-python predict2.py
-```
-
-## 📁 项目结构
-
-```
-cycling-helmet-detection/
-├── README.md                 # 项目说明文档
-├── .gitignore               # Git忽略文件
-├── requirements.txt         # 依赖包列表
-├── train.py                # 训练脚本
-├── prepare_data.py          # 数据预处理脚本
-├── predict1.py             # 图片检测脚本
-├── predict2.py             # 视频检测脚本
-├── data.yaml               # 数据配置文件
-├── yolov8n.pt              # YOLOv8预训练模型
-├── data/                   # 原始数据集
-│   ├── images/             # 图片文件
-│   └── annotations/        # XML标注文件
-├── SafetyHelmet_Kaggle/    # 处理后的YOLO格式数据
-└── runs/                   # 训练和预测结果
-```
-
-## 🔧 使用说明
-
-### 1. 数据预处理
-`prepare_data.py` 会自动：
-- 将XML标注转换为YOLO格式
-- 划分训练集和验证集（8:2比例）
-- 创建必要的目录结构
-- 生成data.yaml配置文件
-
-### 2. 模型训练
-`train.py` 使用YOLOv8进行训练：
-- 基于预训练模型yolov8n.pt
-- 训练50个epochs
-- 图片尺寸640x640
-- 自动保存最佳模型权重
-
-### 3. 检测功能
-
-**图片检测** (`predict1.py`):
-- 支持单张或批量图片检测
-- 显示检测框和置信度
-- 可视化检测结果
-
-**视频检测** (`predict2.py`):
-- 支持视频流处理
-- 统计检测数量
-- 保存检测结果
-
-## 📈 训练结果
-
-训练过程会产生丰富的可视化结果：
-- 性能曲线（F1, PR, R曲线）
-- 混淆矩阵
-- 训练过程可视化
-- 验证集检测结果
-
-## 🎮 示例使用
-
-```python
-from ultralytics import YOLO
-
-# 加载训练好的模型
-model = YOLO('runs/detect/train4/weights/best.pt')
-
-# 图片检测
-results = model.predict(source='photo/', save=True, conf=0.5)
-
-# 视频检测
-video_results = model.predict(source='video/1.mp4', save=True, conf=0.5)
-```
-
-## 🤝 贡献
-
-欢迎提交Issue和Pull Request来改进这个项目！
-
-## 📝 许可证
-
-本项目基于MIT许可证开源。
-
-## 🙏 致谢
-
-- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics) - 提供优秀的检测模型
-- BikesHelmets数据集 - 提供训练数据
-
-## 📧 联系方式
-
-如果你有任何问题或建议，欢迎通过GitHub Issues联系。
+作为一个计算机专业的本科生项目，我不仅仅关注模型的最终推理，更着重于**从原始数据清洗到模型量化评估的完整科研链路**。项目中包含了我独立编写的数据预处理脚本，以及对模型在不同 IoU 阈值下表现的详细统计分析。
 
 ---
 
-⭐ 如果这个项目对你有帮助，请给它一个星标！
+## 🛠️ 方法论与数据管线 (Methodology)
+
+### 1. 数据预处理与清洗 (Data Pipeline)
+
+原始数据来源于 `BikesHelmets` 数据集。为了保证训练的有效性，我编写了 `prepare_data.py` 脚本处理以下核心逻辑：
+
+* **格式转换 (ETL)**：编写解析器将原始的 VOC 格式 (`.xml`) 转换为 YOLO 标准格式 (`.txt`)，并进行坐标归一化。
+* **数据集划分 (Stratified Split)**：设定随机种子，严格按照 **8:2** 的比例划分训练集与验证集，防止数据泄露 (Data Leakage)。
+* **类别定义**：
+    * `Class 0`: With Helmet (佩戴头盔)
+    * `Class 1`: Without Helmet (未佩戴头盔)
+
+### 2. 模型配置 (Model Configuration)
+
+出于对**实时性 (Real-time inference)** 的考虑，本项目选用 `yolov8n.pt` (Nano版本) 作为基座模型。
+
+* **Optimizer**: SGD (带有 Momentum, 模拟退火学习率调度)
+* **Epochs**: 50 (根据 Loss 收敛曲线确定)
+* **Image Size**: 640x640
+* **Batch Size**: 16
+
+---
+
+## 📊 实验结果 (Experimental Results)
+
+经过 50 轮的迭代训练，模型（`train4` 版本）在验证集上取得了优异的收敛效果。以下是基于最佳权重 (`best.pt`) 的评估数据：
+
+### 1. 核心指标 (Key Metrics)
+
+| Metric | Value | Description |
+| :--- | :---: | :--- |
+| **mAP@50** | **85.65%** | 在 IoU=0.5 时的平均精度均值，模型表现优秀 |
+| **Precision** | **81.86%** | 查准率，误检率较低 |
+| **Recall** | **80.83%** | 查全率，漏检情况控制在理想范围 |
+| **mAP@50-95** | **54.69%** | 高 IoU 阈值下的综合表现，体现了边框回归的准确性 |
+
+### 2. 可视化分析 (Analysis)
+
+* **混淆矩阵分析**：从实验结果来看，模型在区分"佩戴头盔"与"未佩戴"时表现均衡。
+* **模型优势**：相比于早期的训练版本（train1-3），最终版本 (`train4`) 通过优化超参数，在模型体积仅为 **6.0MB** 的情况下，实现了精度与速度的最佳平衡（Trade-off）。
+
+---
+
+## 💻 快速复现 (Quick Start)
+
+本项目提供了完整的从数据处理到推理的脚本。
+
+### 环境依赖
+
+```bash
+git 
+pip install -r requirements.txt
+```
+
+### 运行流程
+
+1. **数据准备** (解析 XML 并划分数据集):
+    ```bash
+    python prepare_data.py
+    ```
+2. **模型训练** (自动下载预训练权重):
+    ```bash
+    python train.py
+    ```
+3. **推理测试**:
+    ```bash
+    # 图片检测
+    python predict_photo.py --source data/test_image.jpg
+    # 视频流检测
+    python predict_video.py --source data/traffic_video.mp4
+    ```
+
+---
+
+## 📁 项目结构 (File Structure)
+
+```
+.
+├── prepare_data.py    # [Core] 自研数据清洗与格式转换脚本
+├── train.py           # 模型训练入口
+├── predict_photo.py   # 单帧图片推理
+├── predict_video.py   # 视频流推理
+├── data/              # 数据集目录 (XML annotations & Images)
+├── runs/              # 实验记录 (包含 best.pt 权重与评估图表)
+├── SafetyHelmet_Kaggle/  # Kaggle数据集配置
+└── requirements.txt
+```
+
+---
+
+## 🔧 技术栈 (Tech Stack)
+
+- **深度学习框架**: PyTorch 2.0+
+- **目标检测模型**: YOLOv8n (Ultralytics)
+- **数据处理**: Python, OpenCV, PIL
+- **图像标注格式**: VOC (XML) → YOLO (TXT)
+- **评估指标**: mAP, Precision, Recall, F1-Score
+
+---
+
+## 📚 学习收获 (Learning Outcomes)
+
+通过这个项目，我了解了：
+
+1. **端到端CV项目开发流程**
+   - 数据预处理和格式转换
+   - 模型训练和调优
+   - 结果评估和分析
+
+2. **目标检测核心技术**
+   - YOLO算法原理和应用
+   - 边界框回归和分类
+   - IoU和mAP评估指标
+
+3. **工程实践技能**
+   - 代码模块化设计
+   - 自动化数据处理流水线
+   - 结果可视化和报告生成
+
+---
+
+## 🚀 总结与展望 (Conclusion)
+
+本项目成功实现了一个端到端的头盔检测系统。目前的 mAP@50 达到 85.65%，足以应对一般的交通监控场景。
+
+**项目亮点：**
+- ✅ 完整的端到端CV项目流程
+- ✅ 高精度检测：mAP@50=85.65%
+- ✅ 轻量级模型：仅6.0MB大小
+- ✅ 完善的代码文档和实验记录
+
+**未来改进方向：**
+
+1. **数据增强 (Data Augmentation)**：引入 Mosaic 或 Mixup 增强，进一步提升小目标（远处骑行者）的检测召回率。
+2. **模型剪枝 (Pruning)**：尝试对模型进行剪枝和量化，以适应算力更低的嵌入式设备。
+3. **实时部署**：实现摄像头实时检测功能
+4. **Web API部署**：构建在线检测服务
+
+
+---
+
+**Contact**: shishaokai25@gmail.com
+
+---
+
+**© 2025 Helmet Detection System - Built with YOLOv8**
