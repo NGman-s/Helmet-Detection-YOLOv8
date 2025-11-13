@@ -1,0 +1,5 @@
+train: E:/code/project/SafetyHelmet_Kaggle/images/train
+val: E:/code/project/SafetyHelmet_Kaggle/images/val
+
+nc: 2
+names: ['With Helmet', 'Without Helmet'] # 确保是单引号，并且格式正确
