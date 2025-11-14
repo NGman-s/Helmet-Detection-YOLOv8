@@ -93,7 +93,6 @@ pip install -r requirements.txt
 
 ### 🤖 模型权重获取 (Model Weights)
 
-#### 方案一：GitHub Release下载 (推荐)
 本项目的训练权重已通过 GitHub Release 发布，您可以通过以下方式获取最佳模型权重：
 
 1. **访问 Release 页面**：
@@ -113,18 +112,6 @@ pip install -r requirements.txt
    # 直接进行推理
    results = model('test_image.jpg')
    ```
-
-#### 方案二：使用预训练权重
-如果您希望从头开始训练，可以使用 YOLOv8 官方预训练权重：
-```python
-# 代码会自动下载预训练权重
-model = YOLO('yolov8n.pt')
-```
-
-#### 权重文件说明
-- **`best.pt`**: 验证集上表现最佳的权重文件 (mAP@50=85.65%)
-- **`last.pt`**: 训练结束时的最后权重
-- **模型特点**: 6.0MB轻量级，实时推理速度快，适合边缘设备部署
 
 ---
 
