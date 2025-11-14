@@ -54,6 +54,8 @@
 | **mAP@50-95** | **54.69%** | 高 IoU 阈值下的综合表现，体现了边框回归的准确性 |
 
 ### 2. 可视化分析 (Analysis)
+![Confusion Matrix](assets/confusion_matrix.png)
+![alt text](results.png)
 
 * **混淆矩阵分析**：从实验结果来看，模型在区分"佩戴头盔"与"未佩戴"时表现均衡。
 * **模型优势**：相比于早期的训练版本（train1-3），最终版本 (`train4`) 通过优化超参数，在模型体积仅为 **6.0MB** 的情况下，实现了精度与速度的最佳平衡（Trade-off）。
@@ -67,7 +69,8 @@
 ### 环境依赖
 
 ```bash
-git 
+git clone https://github.com/yourusername/Helmet-Detection-YOLOv8.git
+cd Helmet-Detection-YOLOv8
 pip install -r requirements.txt
 ```
 
@@ -89,6 +92,27 @@ pip install -r requirements.txt
     python predict_video.py --source data/traffic_video.mp4
     ```
 
+### 🤖 模型权重获取 (Model Weights)
+
+本项目的训练权重已通过 GitHub Release 发布，您可以通过以下方式获取最佳模型权重：
+
+1. **访问 Release 页面**：
+   点击本仓库顶部的 [Releases](https://github.com/yourusername/Helmet-Detection-YOLOv8/releases) 标签页
+
+2. **下载权重文件**：
+   - 📦 **[v1.0 - YOLOv8 Helmet Detection Model](https://github.com/yourusername/Helmet-Detection-YOLOv8/releases/tag/v1.0)**
+   - 下载 `best.pt` (6.0MB) - 最佳性能权重文件
+
+3. **直接使用**：
+   ```python
+   from ultralytics import YOLO
+   
+   # 加载下载的权重文件
+   model = YOLO('path/to/best.pt')
+   
+   # 直接进行推理
+   results = model('test_image.jpg')
+   ```
 ---
 
 ## 📁 项目结构 (File Structure)
