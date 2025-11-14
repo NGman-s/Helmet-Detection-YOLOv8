@@ -54,10 +54,9 @@
 | **mAP@50-95** | **54.69%** | 高 IoU 阈值下的综合表现，体现了边框回归的准确性 |
 
 ### 2. 可视化分析 (Analysis)
-![Confusion Matrix](assets/confusion_matrix.png)
-![alt text](results.png)
+![Training Results](results.png)
 
-* **混淆矩阵分析**：从实验结果来看，模型在区分"佩戴头盔"与"未佩戴"时表现均衡。
+* **训练过程可视化**：上图展示了模型在50轮训练过程中的性能变化，包括损失函数收敛曲线和评估指标的变化趋势。
 * **模型优势**：相比于早期的训练版本（train1-3），最终版本 (`train4`) 通过优化超参数，在模型体积仅为 **6.0MB** 的情况下，实现了精度与速度的最佳平衡（Trade-off）。
 
 ---
@@ -94,6 +93,7 @@ pip install -r requirements.txt
 
 ### 🤖 模型权重获取 (Model Weights)
 
+#### 方案一：GitHub Release下载 (推荐)
 本项目的训练权重已通过 GitHub Release 发布，您可以通过以下方式获取最佳模型权重：
 
 1. **访问 Release 页面**：
@@ -113,6 +113,19 @@ pip install -r requirements.txt
    # 直接进行推理
    results = model('test_image.jpg')
    ```
+
+#### 方案二：使用预训练权重
+如果您希望从头开始训练，可以使用 YOLOv8 官方预训练权重：
+```python
+# 代码会自动下载预训练权重
+model = YOLO('yolov8n.pt')
+```
+
+#### 权重文件说明
+- **`best.pt`**: 验证集上表现最佳的权重文件 (mAP@50=85.65%)
+- **`last.pt`**: 训练结束时的最后权重
+- **模型特点**: 6.0MB轻量级，实时推理速度快，适合边缘设备部署
+
 ---
 
 ## 📁 项目结构 (File Structure)
